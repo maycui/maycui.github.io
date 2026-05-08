@@ -1,0 +1,145 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --text: #1a1a1a;
+  --muted: #666;
+  --link: #1a1a1a;
+  --link-hover: #444;
+  --border: #e0e0e0;
+  --bg: #fafafa;
+  --max-width: 640px;
+}
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg);
+  margin: 0;
+  padding: 2rem 1.25rem 4rem;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+header {
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+header h1 {
+  font-size: 1.25rem;
+  font-weight: normal;
+  margin: 0 0 0.35rem;
+  letter-spacing: 0.01em;
+}
+
+header p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0;
+  font-style: italic;
+}
+
+nav a.home {
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+nav a.home:hover {
+  color: var(--text);
+}
+
+/* Index page link list */
+
+.link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.link-list li {
+  border-bottom: 1px solid var(--border);
+}
+
+.link-list li:first-child {
+  border-top: 1px solid var(--border);
+}
+
+.link-list a {
+  display: block;
+  padding: 0.85rem 0;
+  text-decoration: none;
+  color: var(--link);
+}
+
+.link-list a:hover .entry-title {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.entry-title {
+  display: block;
+  font-size: 1rem;
+}
+
+.entry-meta {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 0.15rem;
+}
+
+/* Idea / essay page */
+
+article h1 {
+  font-size: 1.45rem;
+  font-weight: normal;
+  line-height: 1.4;
+  margin: 0 0 0.5rem;
+}
+
+article .dateline {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 2rem;
+  display: block;
+}
+
+article p {
+  margin: 0 0 1.25rem;
+}
+
+article h2 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 2rem 0 0.5rem;
+  letter-spacing: 0.02em;
+}
+
+article blockquote {
+  margin: 1.5rem 0;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--border);
+  color: var(--muted);
+  font-style: italic;
+}
+
+footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.82rem;
+  color: var(--muted);
+}
