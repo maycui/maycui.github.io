@@ -46,10 +46,10 @@ header {
 }
 
 header h1 {
-  font-family: var(--font-display);
-  font-size: 2.2rem;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
   font-weight: 300;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--navy);
   margin: 0;
@@ -162,11 +162,12 @@ article p {
 }
 
 article h2 {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 400;
-  letter-spacing: 0.03em;
-  margin: 3rem 0 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin: 3rem 0 0.9rem;
   color: var(--navy);
 }
 
@@ -176,9 +177,10 @@ article blockquote {
   border-left: 1px solid var(--border-dark);
   color: var(--muted-dark);
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-style: italic;
-  line-height: 1.7;
+  line-height: 1.65;
+  font-weight: 300;
 }
 
 article strong {
