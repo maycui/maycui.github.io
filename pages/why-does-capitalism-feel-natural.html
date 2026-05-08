@@ -60,6 +60,229 @@
     .qcard-teal  { border-left-color: #2a6b5e; }
     .qcard-slate { border-left-color: #5a6a7a; }
 
+    /* ── Visualization ─────────────────────────────────── */
+
+    .viz {
+      margin: 2.5rem 0 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .viz-node {
+      width: 100%;
+      border: 1px solid var(--border);
+      padding: 0.8rem 1.1rem;
+      text-align: center;
+      background: #fff;
+    }
+
+    .viz-node .vn-label {
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .viz-node .vn-title {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--navy);
+      letter-spacing: 0.03em;
+    }
+
+    .viz-node .vn-body {
+      font-size: 0.75rem;
+      color: var(--muted-dark);
+      margin-top: 0.25rem;
+      line-height: 1.5;
+    }
+
+    .viz-node-top {
+      background: var(--navy);
+      border-color: var(--navy);
+      max-width: 340px;
+    }
+
+    .viz-node-top .vn-label { color: rgba(255,255,255,0.55); }
+    .viz-node-top .vn-title { color: #fff; font-size: 0.9rem; }
+    .viz-node-top .vn-body  { color: rgba(255,255,255,0.7); }
+
+    .viz-node-synth {
+      background: var(--cream);
+      border-color: var(--navy);
+      border-width: 1px;
+      max-width: 400px;
+    }
+
+    .viz-node-synth .vn-title { color: var(--navy); }
+
+    .viz-node-mid {
+      max-width: 400px;
+    }
+
+    /* the fork row */
+    .viz-fork {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      width: 100%;
+    }
+
+    .viz-fork-cell {
+      background: #fff;
+      padding: 0.85rem 1rem;
+      text-align: center;
+    }
+
+    .viz-fork-cell .vn-label {
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+    }
+
+    .viz-fork-cell .vn-title {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    .viz-fork-cell .vn-body {
+      font-size: 0.73rem;
+      color: var(--muted-dark);
+      margin-top: 0.3rem;
+      line-height: 1.5;
+    }
+
+    .viz-fork-cell .vn-verdict {
+      display: inline-block;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 2px;
+    }
+
+    .vfc-marx { border-top: 2px solid #a83228; }
+    .vfc-marx .vn-label { color: #a83228; }
+    .vfc-marx .vn-title { color: #a83228; }
+    .vfc-marx .vn-verdict { background: #f5e8e8; color: #a83228; }
+
+    .vfc-weber { border-top: 2px solid #2a6b5e; }
+    .vfc-weber .vn-label { color: #2a6b5e; }
+    .vfc-weber .vn-title { color: #2a6b5e; }
+    .vfc-weber .vn-verdict { background: #e8f2f0; color: #2a6b5e; }
+
+    /* arrow connector */
+    .viz-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.1rem 0;
+      gap: 0;
+    }
+
+    .viz-arrow-line {
+      width: 1px;
+      height: 1.4rem;
+      background: var(--border-dark);
+    }
+
+    .viz-arrow-head {
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid var(--border-dark);
+    }
+
+    /* fork connector: line splits into two */
+    .viz-fork-connector {
+      position: relative;
+      width: 100%;
+      height: 2rem;
+    }
+
+    .viz-fork-connector::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 1px;
+      height: 1rem;
+      background: var(--border-dark);
+    }
+
+    .viz-fork-connector::after {
+      content: '';
+      position: absolute;
+      top: 1rem;
+      left: 25%;
+      width: 50%;
+      height: 1px;
+      background: var(--border-dark);
+    }
+
+    .viz-fork-connector .fork-left-drop,
+    .viz-fork-connector .fork-right-drop {
+      position: absolute;
+      top: 1rem;
+      width: 1px;
+      height: 1rem;
+      background: var(--border-dark);
+    }
+
+    .viz-fork-connector .fork-left-drop  { left: 25%; }
+    .viz-fork-connector .fork-right-drop { left: 75%; }
+
+    /* merge connector: two lines join one */
+    .viz-merge-connector {
+      position: relative;
+      width: 100%;
+      height: 2rem;
+    }
+
+    .viz-merge-connector::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 25%;
+      width: 50%;
+      height: 1px;
+      background: var(--border-dark);
+    }
+
+    .viz-merge-connector::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 1px;
+      height: 2rem;
+      background: var(--border-dark);
+    }
+
+    .viz-merge-connector .merge-left-rise,
+    .viz-merge-connector .merge-right-rise {
+      position: absolute;
+      top: 0;
+      width: 1px;
+      height: 1rem;
+      background: var(--border-dark);
+    }
+
+    .viz-merge-connector .merge-left-rise  { left: 25%; }
+    .viz-merge-connector .merge-right-rise { left: 75%; }
+
     .insight {
       background: var(--cream);
       padding: 1.25rem 1.4rem;
@@ -135,6 +358,71 @@
     <article>
       <h1>why does capitalism feel natural?</h1>
       <span class="dateline">May 2026</span>
+
+      <div class="viz">
+
+        <!-- Top: the symptom -->
+        <div class="viz-node viz-node-top">
+          <span class="vn-label">the phenomenon</span>
+          <span class="vn-title">capitalism feels natural</span>
+          <p class="vn-body">inevitable, neutral, the way things simply are</p>
+        </div>
+
+        <!-- Fork connector -->
+        <div class="viz-fork-connector">
+          <div class="fork-left-drop"></div>
+          <div class="fork-right-drop"></div>
+        </div>
+
+        <!-- Fork: Marx | Weber -->
+        <div class="viz-fork">
+          <div class="viz-fork-cell vfc-marx">
+            <span class="vn-label">Marx, 1846–1867</span>
+            <div class="vn-title">mystification</div>
+            <p class="vn-body">exploitation is hidden inside the wage form. things appear more fixed and natural than they are.</p>
+            <span class="vn-verdict">problem: false appearance</span>
+          </div>
+          <div class="viz-fork-cell vfc-weber">
+            <span class="vn-label">Weber, 1905–1917</span>
+            <div class="vn-title">disenchantment</div>
+            <p class="vn-body">all transcendent values have been stripped away. nothing outside the cage can judge it.</p>
+            <span class="vn-verdict">problem: the void</span>
+          </div>
+        </div>
+
+        <!-- Lukács -->
+        <div class="viz-arrow"><div class="viz-arrow-line"></div><div class="viz-arrow-head"></div></div>
+        <div class="viz-node viz-node-mid">
+          <span class="vn-label">Lukács, 1923</span>
+          <span class="vn-title">reification</span>
+          <p class="vn-body">social relations appear as relations between things — as objective as gravity, as inevitable as physics</p>
+        </div>
+
+        <!-- Frankfurt School -->
+        <div class="viz-arrow"><div class="viz-arrow-line"></div><div class="viz-arrow-head"></div></div>
+        <div class="viz-node viz-node-synth">
+          <span class="vn-label">Adorno &amp; Horkheimer, 1944</span>
+          <span class="vn-title">both at once</span>
+          <p class="vn-body">instrumental reason simultaneously mystifies its own domination and destroys the values that could resist it</p>
+        </div>
+
+        <!-- Althusser -->
+        <div class="viz-arrow"><div class="viz-arrow-line"></div><div class="viz-arrow-head"></div></div>
+        <div class="viz-node viz-node-mid">
+          <span class="vn-label">Althusser, 1970</span>
+          <span class="vn-title">interpellation</span>
+          <p class="vn-body">ideology does not persuade you — it constitutes you as the kind of subject who belongs in this order</p>
+        </div>
+
+        <!-- Bourdieu -->
+        <div class="viz-arrow"><div class="viz-arrow-line"></div><div class="viz-arrow-head"></div></div>
+        <div class="viz-node viz-node-mid" style="border-color: var(--navy);">
+          <span class="vn-label">Bourdieu, 1972–1997</span>
+          <span class="vn-title">habitus &amp; symbolic violence</span>
+          <p class="vn-body">the social order is inscribed in your body. you enact it as your own spontaneous desires — with your own complicity</p>
+        </div>
+
+      </div>
 
       <p>
         Capitalism does not announce itself. It does not present itself as one possible arrangement among many, chosen at a particular historical moment by particular people with particular interests. It presents itself as the way things are — as natural, inevitable, and just. Understanding how it does this has been one of the central problems of social theory for two centuries. Two entirely different diagnoses have been offered, arriving at the same symptom from opposite directions.
