@@ -59,6 +59,21 @@ nav a.home:hover {
   color: var(--text);
 }
 
+/* Month groupings */
+
+.month-group {
+  margin-bottom: 2rem;
+}
+
+.month-heading {
+  font-size: 0.85rem;
+  font-weight: normal;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem;
+}
+
 /* Index page link list */
 
 .link-list {
