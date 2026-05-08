@@ -10,52 +10,54 @@
     /* ── Poll result bar ───────────────────────────────────── */
     .poll-box {
       margin: 1.75rem 0;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.1rem 1.25rem 1.25rem;
+      background: var(--cream);
+      padding: 1.25rem 1.4rem 1.4rem;
     }
 
     .poll-label {
-      font-size: 0.72rem;
+      font-size: 0.62rem;
       text-transform: uppercase;
-      letter-spacing: 0.09em;
+      letter-spacing: 0.2em;
       color: var(--muted);
       margin-bottom: 0.85rem;
+      font-weight: 500;
     }
 
     .poll-rules {
       font-size: 0.9rem;
-      margin-bottom: 1rem;
-      line-height: 1.6;
+      margin-bottom: 1.1rem;
+      line-height: 1.7;
     }
 
     .poll-bar-wrap {
       display: flex;
-      height: 10px;
-      border-radius: 5px;
+      height: 6px;
       overflow: hidden;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.6rem;
     }
 
-    .poll-bar-red  { background: #c0392b; width: 44%; }
-    .poll-bar-blue { background: #2980b9; width: 56%; }
+    .poll-bar-red  { background: #a83228; width: 44%; }
+    .poll-bar-blue { background: var(--navy); width: 56%; }
 
     .poll-stats {
       display: flex;
       justify-content: space-between;
-      font-size: 0.8rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
     }
 
-    .poll-stats .red  { color: #c0392b; }
-    .poll-stats .blue { color: #2980b9; }
-    .poll-stats .total { color: var(--muted); font-style: italic; }
+    .poll-stats .red   { color: #a83228; }
+    .poll-stats .blue  { color: var(--navy); }
+    .poll-stats .total { color: var(--muted); }
 
     /* ── Red / Blue comparison ─────────────────────────────── */
     .compare {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      gap: 1px;
       margin: 1.75rem 0;
+      border: 1px solid var(--border);
+      background: var(--border);
     }
 
     @media (max-width: 520px) {
@@ -63,98 +65,101 @@
     }
 
     .compare-card {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1rem 1.1rem;
+      background: #fff;
+      padding: 1.1rem 1.2rem;
     }
 
     .compare-card .cc-label {
-      font-size: 0.7rem;
+      font-size: 0.62rem;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-weight: bold;
-      margin-bottom: 0.6rem;
+      letter-spacing: 0.2em;
+      font-weight: 500;
+      margin-bottom: 0.65rem;
     }
 
     .compare-card p {
-      font-size: 0.88rem;
+      font-size: 0.875rem;
       margin: 0;
-      line-height: 1.65;
+      line-height: 1.7;
     }
 
-    .cc-red  { border-top: 3px solid #c0392b; }
-    .cc-red  .cc-label { color: #c0392b; }
-    .cc-blue { border-top: 3px solid #2980b9; }
-    .cc-blue .cc-label { color: #2980b9; }
+    .cc-red  { border-top: 2px solid #a83228; }
+    .cc-red  .cc-label { color: #a83228; }
+    .cc-blue { border-top: 2px solid var(--navy); }
+    .cc-blue .cc-label { color: var(--navy); }
 
     /* ── Thinker quote card ────────────────────────────────── */
     .qcard {
-      border-left: 3px solid var(--border);
-      background: #f7f6f4;
-      border-radius: 0 6px 6px 0;
-      padding: 1rem 1.2rem;
-      margin: 1.5rem 0;
+      border-left: 1px solid var(--border-dark);
+      background: var(--cream);
+      padding: 1.25rem 1.4rem;
+      margin: 1.75rem 0;
       position: relative;
     }
 
     .qcard::before {
       content: '\201C';
       position: absolute;
-      top: -0.1rem;
-      left: 0.9rem;
-      font-size: 3rem;
+      top: 0.2rem;
+      left: 1rem;
+      font-size: 2.5rem;
       line-height: 1;
-      color: #ddd;
-      font-family: Georgia, serif;
+      color: #ccc4b4;
+      font-family: 'Cormorant Garamond', Georgia, serif;
       pointer-events: none;
     }
 
     .qcard blockquote {
-      margin: 0 0 0.6rem;
+      margin: 0 0 0.65rem;
       padding: 0;
-      padding-top: 1.2rem;
+      padding-top: 1rem;
       border: none;
-      font-size: 0.9rem;
-      color: #2a2a2a;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.1rem;
+      color: var(--text);
       font-style: italic;
+      line-height: 1.65;
     }
 
     .qcard .attribution {
-      font-size: 0.75rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       color: var(--muted);
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.5rem;
     }
 
     .qcard .thinker {
-      font-weight: bold;
-      color: #444;
+      font-weight: 500;
+      color: var(--navy);
       font-style: normal;
     }
 
     /* ── Accent color variants for qcard ──────────────────── */
-    .qcard-gold   { border-left-color: #c8940a; }
-    .qcard-red    { border-left-color: #c0392b; }
-    .qcard-blue   { border-left-color: #2980b9; }
-    .qcard-teal   { border-left-color: #16a085; }
+    .qcard-gold   { border-left-color: #b8860b; }
+    .qcard-red    { border-left-color: #a83228; }
+    .qcard-blue   { border-left-color: var(--navy); }
+    .qcard-teal   { border-left-color: #2a6b5e; }
 
     /* ── Key insight callout ───────────────────────────────── */
     .insight {
-      background: #f0ede8;
-      border-radius: 8px;
-      padding: 1rem 1.25rem;
+      background: var(--cream);
+      padding: 1.25rem 1.4rem;
       margin: 1.75rem 0;
-      font-size: 0.92rem;
-      line-height: 1.7;
+      font-size: 0.9rem;
+      line-height: 1.75;
+      border-left: 2px solid var(--navy);
     }
 
     .insight .insight-label {
-      font-size: 0.68rem;
+      font-size: 0.62rem;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-      margin-bottom: 0.4rem;
+      letter-spacing: 0.2em;
+      font-weight: 500;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
     }
 
     .insight p { margin: 0; }
@@ -162,33 +167,38 @@
     /* ── Thinker grid (Frankfurt School) ──────────────────── */
     .thinker-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 0.85rem;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 1px;
       margin: 1.75rem 0;
+      border: 1px solid var(--border);
+      background: var(--border);
     }
 
     .thinker-card {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.9rem 1rem;
+      background: #fff;
+      padding: 1rem 1.1rem;
+      border-top: 2px solid var(--navy);
     }
 
     .thinker-card .tc-name {
-      font-size: 0.8rem;
-      font-weight: bold;
-      margin-bottom: 0.2rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.15rem;
+      color: var(--navy);
     }
 
     .thinker-card .tc-concept {
-      font-size: 0.75rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       color: var(--muted);
-      font-style: italic;
-      margin-bottom: 0.55rem;
+      margin-bottom: 0.6rem;
     }
 
     .thinker-card .tc-body {
       font-size: 0.82rem;
-      line-height: 1.55;
+      line-height: 1.6;
       margin: 0;
     }
 
@@ -196,8 +206,10 @@
     .two-points {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      gap: 1px;
       margin: 1.75rem 0;
+      border: 1px solid var(--border);
+      background: var(--border);
     }
 
     @media (max-width: 520px) {
@@ -205,37 +217,38 @@
     }
 
     .point-card {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1rem 1.1rem;
+      background: var(--cream);
+      padding: 1.1rem 1.2rem;
     }
 
     .point-card .pc-num {
-      font-size: 1.6rem;
-      font-weight: bold;
-      color: #e0dbd4;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: #c8b89a;
       line-height: 1;
       margin-bottom: 0.4rem;
-      font-family: Georgia, serif;
     }
 
     .point-card .pc-title {
-      font-size: 0.85rem;
-      font-weight: bold;
-      margin-bottom: 0.4rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+      color: var(--navy);
     }
 
     .point-card p {
       font-size: 0.85rem;
       margin: 0;
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
     /* ── Section rule ──────────────────────────────────────── */
     .section-rule {
       border: none;
       border-top: 1px solid var(--border);
-      margin: 2.5rem 0;
+      margin: 3rem 0;
     }
 
   </style>

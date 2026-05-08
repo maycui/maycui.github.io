@@ -1,25 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 :root {
-  --text: #1a1a1a;
-  --muted: #666;
-  --link: #1a1a1a;
-  --link-hover: #444;
-  --border: #e0e0e0;
-  --bg: #fafafa;
-  --max-width: 640px;
+  --text:        #1a2332;
+  --muted:       #8a8a8a;
+  --muted-dark:  #555555;
+  --link:        #1a2332;
+  --link-hover:  #1a2d4a;
+  --border:      #dcdcdc;
+  --border-dark: #aaaaaa;
+  --bg:          #ffffff;
+  --cream:       #f2ebe0;
+  --navy:        #1a2d4a;
+  --max-width:   700px;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 1.05rem;
-  line-height: 1.7;
+  font-family: var(--font-body);
+  font-size: 0.925rem;
+  font-weight: 300;
+  line-height: 1.8;
   color: var(--text);
   background: var(--bg);
   margin: 0;
-  padding: 2rem 1.25rem 4rem;
+  padding: 3rem 1.5rem 6rem;
+  -webkit-font-smoothing: antialiased;
 }
 
 .container {
@@ -27,54 +37,58 @@ body {
   margin: 0 auto;
 }
 
+/* ── Site header (index page) ─────────────────────────── */
+
 header {
-  margin-bottom: 3rem;
-  padding-bottom: 1.5rem;
+  margin-bottom: 4rem;
+  padding-bottom: 2rem;
   border-bottom: 1px solid var(--border);
 }
 
 header h1 {
-  font-size: 1.25rem;
-  font-weight: normal;
-  margin: 0 0 0.35rem;
-  letter-spacing: 0.01em;
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--navy);
+  margin: 0;
+  line-height: 1;
 }
 
-header p {
-  font-size: 0.9rem;
-  color: var(--muted);
-  margin: 0;
-  font-style: italic;
-}
+/* ── Back nav ─────────────────────────────────────────── */
 
 nav a.home {
-  font-size: 0.85rem;
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   color: var(--muted);
   text-decoration: none;
   display: inline-block;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 nav a.home:hover {
-  color: var(--text);
+  color: var(--navy);
 }
 
-/* Month groupings */
+/* ── Month groupings ──────────────────────────────────── */
 
 .month-group {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .month-heading {
-  font-size: 0.85rem;
-  font-weight: normal;
-  color: var(--muted);
-  letter-spacing: 0.05em;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  margin: 0 0 0.5rem;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
 }
 
-/* Index page link list */
+/* ── Index link list ──────────────────────────────────── */
 
 .link-list {
   list-style: none;
@@ -92,69 +106,103 @@ nav a.home:hover {
 
 .link-list a {
   display: block;
-  padding: 0.85rem 0;
+  padding: 1.2rem 0;
   text-decoration: none;
   color: var(--link);
 }
 
 .link-list a:hover .entry-title {
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  color: var(--navy);
 }
 
 .entry-title {
   display: block;
-  font-size: 1rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+  transition: color 0.15s;
 }
 
 .entry-meta {
   display: block;
-  font-size: 0.82rem;
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   color: var(--muted);
-  font-style: italic;
-  margin-top: 0.15rem;
+  margin-top: 0.3rem;
 }
 
-/* Idea / essay page */
+/* ── Article page ─────────────────────────────────────── */
 
 article h1 {
-  font-size: 1.45rem;
-  font-weight: normal;
-  line-height: 1.4;
-  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: var(--navy);
+  margin: 0 0 0.75rem;
 }
 
 article .dateline {
-  font-size: 0.85rem;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
   color: var(--muted);
-  font-style: italic;
-  margin-bottom: 2rem;
+  margin-bottom: 3.5rem;
   display: block;
 }
 
 article p {
-  margin: 0 0 1.25rem;
+  margin: 0 0 1.35rem;
 }
 
 article h2 {
-  font-size: 1rem;
-  font-weight: bold;
-  margin: 2rem 0 0.5rem;
-  letter-spacing: 0.02em;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  margin: 3rem 0 0.75rem;
+  color: var(--navy);
 }
 
 article blockquote {
-  margin: 1.5rem 0;
-  padding-left: 1.25rem;
-  border-left: 2px solid var(--border);
-  color: var(--muted);
+  margin: 2rem 0;
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--border-dark);
+  color: var(--muted-dark);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
   font-style: italic;
+  line-height: 1.7;
 }
 
+article strong {
+  font-weight: 500;
+}
+
+/* ── Footer ───────────────────────────────────────────── */
+
 footer {
-  margin-top: 3rem;
+  margin-top: 4rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--border);
-  font-size: 0.82rem;
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   color: var(--muted);
+}
+
+footer a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: var(--navy);
 }

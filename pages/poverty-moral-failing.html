@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../style.css">
   <style>
     .diagram-wrap {
-      margin: 2rem 0;
+      margin: 2.5rem 0;
       overflow-x: auto;
     }
 
@@ -19,14 +19,17 @@
 
     .col-header {
       text-align: center;
-      font-size: 0.8rem;
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
       color: var(--muted);
-      font-style: italic;
-      padding-bottom: 0.75rem;
+      padding-bottom: 0.9rem;
     }
 
     .timeline-label {
-      font-size: 0.72rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
       color: var(--muted);
       padding-top: 0.6rem;
       padding-right: 0.5rem;
@@ -34,49 +37,49 @@
     }
 
     .dbox {
-      border-radius: 8px;
-      padding: 0.6rem 0.8rem;
+      padding: 0.65rem 0.85rem;
       text-align: center;
     }
 
     .dbox-title {
-      font-size: 0.88rem;
-      font-weight: bold;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
       margin: 0 0 0.2rem;
     }
 
     .dbox-sub {
-      font-size: 0.74rem;
-      line-height: 1.45;
+      font-size: 0.7rem;
+      line-height: 1.5;
       margin: 0;
     }
 
-    .box-gray        { background: #ebebeb; color: #444;    border: 1px solid #ccc; }
-    .box-tan         { background: #f5e9d0; color: #7a5510; border: 1px solid #d4b870; }
-    .box-teal        { background: #d4edea; color: #1a6558; border: 1px solid #8ecfbf; }
-    .box-blue        { background: #dce8f5; color: #1e4a7a; border: 1px solid #8ab4d8; }
-    .box-green       { background: #c8e8c4; color: #1a561a; border: 1px solid #78c870; }
-    .box-red         { background: #f5d8d8; color: #8a1a1a; border: 1px solid #d88080; }
-    .box-red-strong  { background: #f5d8d8; color: #8a1a1a; border: 2px solid #cc4444; }
+    .box-gray        { background: #eeece8; color: #444;    border: 1px solid #d0cdc8; }
+    .box-tan         { background: #f2ebe0; color: #6a4a10; border: 1px solid #c8a860; }
+    .box-teal        { background: #daeae8; color: #1a5550; border: 1px solid #8abfb8; }
+    .box-blue        { background: #dce6f2; color: #1a2d4a; border: 1px solid #8aaac8; }
+    .box-green       { background: #daeada; color: #1a4a1a; border: 1px solid #8ab88a; }
+    .box-red         { background: #f0d8d8; color: #6a1a1a; border: 1px solid #c88080; }
+    .box-red-strong  { background: #f0d8d8; color: #6a1a1a; border: 2px solid #a83228; }
 
     .arrow-down {
       display: flex;
       justify-content: center;
       align-items: center;
-      color: #aaa;
-      font-size: 1rem;
+      color: #bbb;
+      font-size: 0.9rem;
       padding: 0.1rem 0;
     }
 
-    .arrow-down.red { color: #cc4444; }
+    .arrow-down.red { color: #a83228; }
 
     .mid-connector {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 0.72rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
       color: var(--muted);
-      font-style: italic;
       border-left: 1px dashed var(--border);
     }
 
@@ -85,24 +88,27 @@
     }
 
     .guardrail {
-      margin-top: 1.5rem;
-      border: 1px dashed #bbb;
-      border-radius: 8px;
-      padding: 1rem 1.25rem;
+      margin-top: 1.75rem;
+      border: 1px solid var(--border);
+      background: var(--cream);
+      padding: 1.1rem 1.4rem;
       text-align: center;
     }
 
     .guardrail h3 {
-      font-size: 0.92rem;
-      font-weight: bold;
-      margin: 0 0 0.5rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin: 0 0 0.6rem;
     }
 
     .guardrail p {
       font-size: 0.8rem;
-      color: var(--muted);
+      color: var(--muted-dark);
       margin: 0;
-      line-height: 1.65;
+      line-height: 1.7;
     }
   </style>
 </head>
