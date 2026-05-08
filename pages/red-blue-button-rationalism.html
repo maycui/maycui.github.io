@@ -6,55 +6,238 @@
   <title>how does the red button vs blue button debate relate to rationalism? &mdash; DigiGarden</title>
   <link rel="stylesheet" href="../style.css">
   <style>
-    .scenario-box {
-      background: #f5f5f5;
-      border-left: 3px solid #1a1a1a;
-      padding: 1rem 1.25rem;
+
+    /* ── Poll result bar ───────────────────────────────────── */
+    .poll-box {
       margin: 1.75rem 0;
-      border-radius: 0 6px 6px 0;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.1rem 1.25rem 1.25rem;
     }
 
-    .scenario-box p {
-      margin: 0 0 0.5rem;
-      font-size: 0.92rem;
-    }
-
-    .scenario-box p:last-child {
-      margin: 0;
-    }
-
-    .scenario-box .label {
-      font-size: 0.75rem;
+    .poll-label {
+      font-size: 0.72rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.09em;
       color: var(--muted);
+      margin-bottom: 0.85rem;
+    }
+
+    .poll-rules {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .poll-bar-wrap {
+      display: flex;
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+
+    .poll-bar-red  { background: #c0392b; width: 44%; }
+    .poll-bar-blue { background: #2980b9; width: 56%; }
+
+    .poll-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+    }
+
+    .poll-stats .red  { color: #c0392b; }
+    .poll-stats .blue { color: #2980b9; }
+    .poll-stats .total { color: var(--muted); font-style: italic; }
+
+    /* ── Red / Blue comparison ─────────────────────────────── */
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.75rem 0;
+    }
+
+    @media (max-width: 520px) {
+      .compare { grid-template-columns: 1fr; }
+    }
+
+    .compare-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+    }
+
+    .compare-card .cc-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: bold;
       margin-bottom: 0.6rem;
     }
 
-    .result-line {
+    .compare-card p {
       font-size: 0.88rem;
-      color: var(--muted);
-      font-style: italic;
-      margin-top: 0.75rem;
+      margin: 0;
+      line-height: 1.65;
     }
 
+    .cc-red  { border-top: 3px solid #c0392b; }
+    .cc-red  .cc-label { color: #c0392b; }
+    .cc-blue { border-top: 3px solid #2980b9; }
+    .cc-blue .cc-label { color: #2980b9; }
+
+    /* ── Thinker quote card ────────────────────────────────── */
+    .qcard {
+      border-left: 3px solid var(--border);
+      background: #f7f6f4;
+      border-radius: 0 6px 6px 0;
+      padding: 1rem 1.2rem;
+      margin: 1.5rem 0;
+      position: relative;
+    }
+
+    .qcard::before {
+      content: '\201C';
+      position: absolute;
+      top: -0.1rem;
+      left: 0.9rem;
+      font-size: 3rem;
+      line-height: 1;
+      color: #ddd;
+      font-family: Georgia, serif;
+      pointer-events: none;
+    }
+
+    .qcard blockquote {
+      margin: 0 0 0.6rem;
+      padding: 0;
+      padding-top: 1.2rem;
+      border: none;
+      font-size: 0.9rem;
+      color: #2a2a2a;
+      font-style: italic;
+    }
+
+    .qcard .attribution {
+      font-size: 0.75rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .qcard .thinker {
+      font-weight: bold;
+      color: #444;
+      font-style: normal;
+    }
+
+    /* ── Accent color variants for qcard ──────────────────── */
+    .qcard-gold   { border-left-color: #c8940a; }
+    .qcard-red    { border-left-color: #c0392b; }
+    .qcard-blue   { border-left-color: #2980b9; }
+    .qcard-teal   { border-left-color: #16a085; }
+
+    /* ── Key insight callout ───────────────────────────────── */
+    .insight {
+      background: #f0ede8;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.75rem 0;
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    .insight .insight-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .insight p { margin: 0; }
+
+    /* ── Thinker grid (Frankfurt School) ──────────────────── */
+    .thinker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.85rem;
+      margin: 1.75rem 0;
+    }
+
+    .thinker-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.9rem 1rem;
+    }
+
+    .thinker-card .tc-name {
+      font-size: 0.8rem;
+      font-weight: bold;
+      margin-bottom: 0.2rem;
+    }
+
+    .thinker-card .tc-concept {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 0.55rem;
+    }
+
+    .thinker-card .tc-body {
+      font-size: 0.82rem;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* ── Two-point layout ──────────────────────────────────── */
+    .two-points {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.75rem 0;
+    }
+
+    @media (max-width: 520px) {
+      .two-points { grid-template-columns: 1fr; }
+    }
+
+    .point-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+    }
+
+    .point-card .pc-num {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #e0dbd4;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+      font-family: Georgia, serif;
+    }
+
+    .point-card .pc-title {
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-bottom: 0.4rem;
+    }
+
+    .point-card p {
+      font-size: 0.85rem;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ── Section rule ──────────────────────────────────────── */
     .section-rule {
       border: none;
       border-top: 1px solid var(--border);
       margin: 2.5rem 0;
     }
 
-    .thinker-tag {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-family: Georgia, serif;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      padding: 0.1rem 0.45rem;
-      margin-right: 0.3rem;
-      vertical-align: middle;
-    }
   </style>
 </head>
 <body>
@@ -65,87 +248,91 @@
       <h1>how does the red button vs blue button debate relate to rationalism?</h1>
       <span class="dateline">May 2026</span>
 
+      <!-- ── THE SCENARIO ── -->
+
       <h2>The scenario</h2>
 
-      <p>
-        In a poll run by MrBeast, 312,448 people were given the following choice:
-      </p>
+      <p>In a poll run by MrBeast, 312,448 people were given the following choice:</p>
 
-      <div class="scenario-box">
-        <p class="label">The rules</p>
-        <p>You vote privately — red or blue. If more than 50% vote blue, <strong>everyone survives</strong>. If fewer than 50% vote blue, <strong>only red voters survive</strong>.</p>
-        <p class="result-line">Result: 44% red &nbsp;&middot;&nbsp; 56% blue &nbsp;&middot;&nbsp; 312,448 votes</p>
+      <div class="poll-box">
+        <p class="poll-label">The rules</p>
+        <p class="poll-rules">You vote privately — red or blue. If more than 50% vote blue, <strong>everyone survives</strong>. If fewer than 50% vote blue, <strong>only red voters survive</strong>.</p>
+        <div class="poll-bar-wrap">
+          <div class="poll-bar-red"></div>
+          <div class="poll-bar-blue"></div>
+        </div>
+        <div class="poll-stats">
+          <span class="red">44% red</span>
+          <span class="total">312,448 votes</span>
+          <span class="blue">56% blue</span>
+        </div>
+      </div>
+
+      <div class="compare">
+        <div class="compare-card cc-red">
+          <div class="cc-label">Red button</div>
+          <p>You survive no matter what anyone else does. If everyone reasons this way and presses red, no one dies either. A dominant strategy with a moral escape hatch built in.</p>
+        </div>
+        <div class="compare-card cc-blue">
+          <div class="cc-label">Blue button</div>
+          <p>You gamble your survival on strangers you cannot coordinate with. You survive only if the majority agrees. The irrational choice — and yet 56% made it.</p>
+        </div>
       </div>
 
       <p>
-        The result is already interesting. But there is a wrinkle that makes the scenario philosophically
-        explosive: <strong>if everyone votes red, everyone also survives</strong>. The red button is not
-        a defection that requires victims — it is a dominant strategy with a moral escape hatch built in.
-        Press red and you never die, regardless of what anyone else does. Press red and, if everyone else
-        reasons the same way, no one dies either.
-      </p>
-
-      <p>
-        This is not a trolley problem. It is something stranger — a window into the deep structure of
-        Enlightenment rationalism, and what happens when that rationalism consumes everything it touches.
+        The result is philosophically explosive. The red button is not a defection that requires victims.
+        Press red and you never die, regardless of what anyone else does. Press red and, if everyone
+        reasons the same way, no one dies either. This is not a trolley problem. It is something stranger
+        — a window into the deep structure of Enlightenment rationalism, and what happens when that
+        rationalism consumes everything it touches.
       </p>
 
       <hr class="section-rule">
 
-      <h2>A detour: what is Enlightenment rationalism?</h2>
+      <!-- ── ENLIGHTENMENT RATIONALISM ── -->
+
+      <h2>What is Enlightenment rationalism?</h2>
 
       <p>
         To understand why the red button is the <em>rational</em> choice, you have to understand what
-        rationalism, in its Enlightenment form, actually claimed.
+        rationalism, in its Enlightenment form, actually claimed. The Enlightenment — roughly the 17th
+        and 18th centuries — was built on a radical wager: that individual human reason, properly applied,
+        was sufficient to answer every question worth asking. You did not need tradition, scripture, or
+        aristocratic authority. You needed only to think.
       </p>
 
-      <p>
-        The Enlightenment — roughly the 17th and 18th centuries — was built on a radical wager: that
-        individual human reason, properly applied, was sufficient to answer every question worth asking.
-        Political questions, moral questions, economic questions. You did not need tradition, scripture,
-        or aristocratic authority. You needed only to think.
-      </p>
-
-      <blockquote>
-        &ldquo;Dare to know! Have the courage to use your own understanding — that is the motto of the Enlightenment.&rdquo;
-        <br><span class="thinker-tag">Kant</span> <em>What is Enlightenment?</em>, 1784
-      </blockquote>
+      <div class="qcard qcard-gold">
+        <blockquote>Dare to know! Have the courage to use your own understanding — that is the motto of the Enlightenment.</blockquote>
+        <div class="attribution"><span class="thinker">Kant</span> &mdash; <em>What is Enlightenment?</em>, 1784</div>
+      </div>
 
       <p>
         Kant's formulation — <em>Sapere aude</em> — captured the project in two words. The enemy was
-        tutelage: relying on someone else to do your thinking for you. The solution was autonomous reason.
-        Each person, reasoning individually and correctly, would arrive at the same universal truths.
-        Reason was not communal or situational. It was universal, abstract, and sovereign.
+        tutelage: relying on someone else to do your thinking for you. Each person, reasoning individually
+        and correctly, would arrive at the same universal truths. Reason was not communal or situational.
+        It was universal, abstract, and sovereign.
       </p>
 
       <p>
-        Descartes had already laid the groundwork a century earlier. His method of radical doubt — strip
-        away everything that could possibly be false, see what remains — produced a single irreducible
-        starting point: <em>cogito ergo sum</em>. I think, therefore I am. The thinking self, the
-        reasoning individual, is the only bedrock. Everything else must be reconstructed from there.
+        Descartes had laid the groundwork a century earlier. His method of radical doubt — strip away
+        everything that could possibly be false, see what remains — produced a single irreducible starting
+        point: <em>cogito ergo sum</em>. The thinking self, the reasoning individual, is the only bedrock.
+        Everything else must be reconstructed from there.
       </p>
 
-      <blockquote>
-        &ldquo;I resolved to assume that everything that ever entered into my mind was no more true than
-        the illusions of my dreams.&rdquo;
-        <br><span class="thinker-tag">Descartes</span> <em>Discourse on the Method</em>, 1637
-      </blockquote>
+      <div class="qcard qcard-gold">
+        <blockquote>I resolved to assume that everything that ever entered into my mind was no more true than the illusions of my dreams.</blockquote>
+        <div class="attribution"><span class="thinker">Descartes</span> &mdash; <em>Discourse on the Method</em>, 1637</div>
+      </div>
 
-      <p>
-        This move — anchoring everything in the individual reasoning subject — was the Enlightenment's
-        most consequential philosophical gamble. It produced science, liberal democracy, and universal
-        human rights. It also produced something else: a conception of rationality as fundamentally
-        <em>private</em>. You reason alone. You reason toward your own best interest. You do not need
-        to consult the community, the church, or the dead.
-      </p>
-
-      <p>
-        What the Enlightenment called reason was, in practice, a specific kind of reason: instrumental
-        reason. Not "what is the good life?" but "given my goals, what is the most efficient means of
-        achieving them?" Rationality became calculation. The moral question became a maximization problem.
-      </p>
+      <div class="insight">
+        <div class="insight-label">The key mutation</div>
+        <p>What the Enlightenment called reason was, in practice, a specific kind of reason: <strong>instrumental reason</strong>. Not "what is the good life?" but "given my goals, what is the most efficient means of achieving them?" Rationality became calculation. The moral question became a maximization problem. You reason alone, toward your own best interest, with no need to consult the community, the church, or the dead.</p>
+      </div>
 
       <hr class="section-rule">
+
+      <!-- ── ADAM SMITH ── -->
 
       <h2>Adam Smith and the invisible hand</h2>
 
@@ -156,70 +343,48 @@
         anyone intending it.
       </p>
 
-      <blockquote>
-        &ldquo;It is not from the benevolence of the butcher, the brewer, or the baker that we expect
-        our dinner, but from their regard to their own interest. We address ourselves, not to their
-        humanity but to their self-love, and never talk to them of our own necessities but of their advantages.&rdquo;
-        <br><span class="thinker-tag">Adam Smith</span> <em>The Wealth of Nations</em>, 1776
-      </blockquote>
+      <div class="qcard qcard-teal">
+        <blockquote>It is not from the benevolence of the butcher, the brewer, or the baker that we expect our dinner, but from their regard to their own interest. We address ourselves, not to their humanity but to their self-love.</blockquote>
+        <div class="attribution"><span class="thinker">Adam Smith</span> &mdash; <em>The Wealth of Nations</em>, 1776</div>
+      </div>
+
+      <div class="qcard qcard-teal">
+        <blockquote>He intends only his own gain, and he is in this, as in many other cases, led by an invisible hand to promote an end which was no part of his intention.</blockquote>
+        <div class="attribution"><span class="thinker">Adam Smith</span> &mdash; <em>The Wealth of Nations</em>, 1776</div>
+      </div>
 
       <p>
-        And the famous formulation that followed:
-      </p>
-
-      <blockquote>
-        &ldquo;He intends only his own gain, and he is in this, as in many other cases, led by an invisible
-        hand to promote an end which was no part of his intention. Nor is it always the worse for the
-        society that it was no part of it.&rdquo;
-        <br><span class="thinker-tag">Adam Smith</span> <em>The Wealth of Nations</em>, 1776
-      </blockquote>
-
-      <p>
-        This is Enlightenment rationalism applied to political economy. No community obligation is required.
-        No moral solidarity. No conversation about the common good. Each agent reasons privately, acts
-        in their own interest, and the system — through the mechanism of price signals — produces outcomes
-        that serve everyone. The social good emerges from private rationality as if by magic.
-      </p>
-
-      <p>
-        Smith was subtler than his disciples. He wrote <em>The Theory of Moral Sentiments</em> before
-        <em>Wealth of Nations</em>, and he knew that markets operated inside a thick fabric of social trust,
-        legal institutions, and moral norms that self-interest alone could not produce. But the invisible
-        hand became a metaphor that swallowed everything else. What survived into the 19th and 20th centuries
-        was the stripped-down claim: private rational self-interest, left alone, produces collective good.
-        Reason privatized and sanctified.
+        No community obligation is required. No moral solidarity. No conversation about the common good.
+        Each agent reasons privately, acts in their own interest, and the system produces outcomes that
+        serve everyone. Smith was subtler than his disciples — he knew markets operated inside a thick
+        fabric of social trust that self-interest alone could not produce. But the invisible hand became
+        a metaphor that swallowed everything else. What survived was the stripped-down claim: private
+        rational self-interest, left alone, produces collective good. Reason privatized and sanctified.
       </p>
 
       <hr class="section-rule">
 
+      <!-- ── RED IS RATIONAL TWICE ── -->
+
       <h2>The red button is the rational choice — twice over</h2>
 
       <p>
-        Return to the scenario. From a purely instrumental rationalist standpoint, red is the correct
-        answer, and it is correct in two independent ways.
+        From a purely instrumental rationalist standpoint, red is the correct answer, and it is correct
+        in two independent ways.
       </p>
 
-      <p>
-        <strong>First, red dominates blue on individual grounds.</strong> If you press red, you survive
-        no matter what anyone else does. If you press blue, you survive only if more than half the others
-        also press blue — an outcome you cannot control or verify. A fully rational actor, in the
-        Enlightenment sense, reasons from their own position outward, takes no gamble they do not have to
-        take, and chooses the option that guarantees survival. Red is dominant. This is not a close call.
-      </p>
-
-      <p>
-        <strong>Second, red provides a moral out.</strong> The rationalist does not even need to feel guilty.
-        If everyone reasons as I do — and if we are all rational, they should — then everyone presses red
-        and everyone survives. Adam Smith's invisible hand materializes in a game show. Private rationality
-        produces the collective good without any community, obligation, or moral sentiment. The rationalist
-        presses red with a clean conscience.
-      </p>
-
-      <p>
-        This is Enlightenment rationalism in its purest, most distilled form: the private reasoning subject,
-        sovereign and sufficient, pursuing their optimal outcome, and arriving at a world that works — not
-        through solidarity but through the aligned self-interest of individuals reasoning correctly.
-      </p>
+      <div class="two-points">
+        <div class="point-card">
+          <div class="pc-num">I.</div>
+          <div class="pc-title">Individual dominance</div>
+          <p>If you press red, you survive no matter what anyone else does. If you press blue, you survive only if more than half the others also press blue — an outcome you cannot control or verify. Red is dominant. This is not a close call.</p>
+        </div>
+        <div class="point-card">
+          <div class="pc-num">II.</div>
+          <div class="pc-title">The moral out</div>
+          <p>If everyone reasons as I do — and if we are all rational, they should — then everyone presses red and everyone survives. Adam Smith's invisible hand materializes in a game show. The rationalist presses red with a clean conscience.</p>
+        </div>
+      </div>
 
       <p>
         The red button is not a thought experiment designed to make rationalism look bad. It is rationalism
@@ -229,146 +394,88 @@
 
       <hr class="section-rule">
 
+      <!-- ── FRANKFURT SCHOOL ── -->
+
       <h2>When rationalism eats itself: the Frankfurt School</h2>
 
       <p>
-        The Frankfurt School — Adorno, Horkheimer, Marcuse, Benjamin — emerged in Weimar Germany in the
-        1920s asking a question that rationalism could not answer from within its own resources: <em>if
-        reason is our guide, how did it produce this?</em>
+        The Frankfurt School emerged in Weimar Germany in the 1920s asking a question that rationalism
+        could not answer from within its own resources: <em>if reason is our guide, how did it produce this?</em>
+        The "this" was fascism — not from ignorance or irrationality, but from the application of rational
+        methods to mass murder. Eichmann organized the death camps with the same mentality as any competent
+        middle manager. Hannah Arendt called it the banality of evil: not monsters, just instrumental reason
+        without moral remainder.
       </p>
 
-      <p>
-        The "this" was fascism. Not despite modernity but from within it. Not from ignorance or irrationality
-        but from the application of rational methods — logistics, bureaucracy, industrial organization — to
-        mass murder. Eichmann organized the death camps with the same mentality as any competent middle manager.
-        Hannah Arendt called it the banality of evil: not monsters, just instrumental reason without moral remainder.
-      </p>
+      <div class="thinker-grid">
+        <div class="thinker-card">
+          <div class="tc-name">Adorno &amp; Horkheimer</div>
+          <div class="tc-concept">Dialectic of Enlightenment, 1944</div>
+          <p class="tc-body">Enlightenment reason has turned against itself. The same rationality that promised liberation produced fascism. Reason became <strong>instrumental</strong> — purely about efficiency and control, stripped of any substantive moral content.</p>
+        </div>
+        <div class="thinker-card">
+          <div class="tc-name">Max Weber</div>
+          <div class="tc-concept">The iron cage</div>
+          <p class="tc-body">Rational bureaucracy produces <strong>disenchantment</strong>: a world so thoroughly organized by instrumental rationality that no values outside it remain capable of judging or resisting it. God, tradition, community obligation — all dissolved.</p>
+        </div>
+        <div class="thinker-card">
+          <div class="tc-name">Herbert Marcuse</div>
+          <div class="tc-concept">One-Dimensional Man, 1964</div>
+          <p class="tc-body">Advanced capitalism produces a person who can only conceive of freedom as <strong>consumer choice</strong> — one for whom the red button is not just rational but the only choice that feels real. The one-dimensional man.</p>
+        </div>
+      </div>
 
-      <p>
-        Adorno and Horkheimer's diagnosis, written in California exile in 1944, was devastating:
-      </p>
+      <div class="qcard qcard-red">
+        <blockquote>Enlightenment, understood in the widest sense as the advance of thought, has always aimed at liberating human beings from fear and installing them as masters. Yet the fully enlightened earth radiates disaster triumphant.</blockquote>
+        <div class="attribution"><span class="thinker">Adorno &amp; Horkheimer</span> &mdash; <em>Dialectic of Enlightenment</em>, 1944</div>
+      </div>
 
-      <blockquote>
-        &ldquo;Enlightenment, understood in the widest sense as the advance of thought, has always aimed
-        at liberating human beings from fear and installing them as masters. Yet the fully enlightened earth
-        radiates disaster triumphant.&rdquo;
-        <br><span class="thinker-tag">Adorno &amp; Horkheimer</span> <em>Dialectic of Enlightenment</em>, 1944
-      </blockquote>
+      <div class="qcard qcard-red">
+        <blockquote>A comfortable, smooth, reasonable, democratic unfreedom prevails in advanced industrial civilization, a token of technical progress.</blockquote>
+        <div class="attribution"><span class="thinker">Marcuse</span> &mdash; <em>One-Dimensional Man</em>, 1964</div>
+      </div>
 
-      <p>
-        The argument was not that reason is bad. It was that Enlightenment reason had mutated into
-        <em>instrumental reason</em> — reason that asks only "how?" and never "why?" or "whether?"
-        Stripped of substantive moral content, reason became pure technique. It could be put to any use
-        by whoever controlled the apparatus. And capitalism had done exactly this: colonized reason,
-        flattened it into efficiency, and sold the result as progress.
-      </p>
-
-      <p>
-        Weber had seen the same pathology from a different angle, and named it disenchantment:
-      </p>
-
-      <blockquote>
-        &ldquo;The fate of our times is characterized by rationalization and intellectualization and,
-        above all, by the disenchantment of the world.&rdquo;
-        <br><span class="thinker-tag">Weber</span> <em>Science as a Vocation</em>, 1917
-      </blockquote>
-
-      <p>
-        For Weber, the triumph of rational bureaucracy produced the iron cage: a world so thoroughly
-        organized by instrumental rationality that there were no values left outside it capable of
-        judging or resisting it. You could not appeal to God, tradition, or community obligation.
-        Those had been dissolved. All that remained was the cage itself, and the managers within it
-        doing their jobs efficiently.
-      </p>
-
-      <p>
-        Marcuse extended this into consumer capitalism. In <em>One-Dimensional Man</em> (1964), he argued
-        that advanced capitalism had produced a new kind of person: one who could only conceive of freedom
-        as consumer choice, who could not think outside the system's own categories, who had been so
-        thoroughly produced by instrumental rationality that no genuinely critical thought could form.
-      </p>
-
-      <blockquote>
-        &ldquo;A comfortable, smooth, reasonable, democratic unfreedom prevails in advanced industrial
-        civilization, a token of technical progress.&rdquo;
-        <br><span class="thinker-tag">Marcuse</span> <em>One-Dimensional Man</em>, 1964
-      </blockquote>
-
-      <p>
-        Marcuse's one-dimensional man can only think in red button terms. He has been produced by
-        a system that has rewarded every form of private rational self-interest and systematically
-        dissolved every institution — guild, church, community, family obligation — that once made
-        blue button thinking feel natural. Consumer capitalism does not only produce goods. It produces
-        a certain kind of subject: one for whom the red button is not just the rational choice but the
-        only choice that feels real.
-      </p>
-
-      <p>
-        The Frankfurt School's deepest claim was that this is self-undermining. Instrumental rationalism
-        is parasitic on social trust, moral norms, and cooperative instincts that it did not create and
-        that it steadily erodes. Markets require contracts to be honored, property rights to be respected,
-        and promises to be kept — not because it is always individually rational to do so, but because
-        people have been shaped by traditions and communities that instilled these dispositions. As those
-        traditions and communities are dissolved by the market, the substrate markets depend on disappears
-        too. The invisible hand was always borrowing against a moral capital it did not know how to replenish.
-      </p>
+      <div class="insight">
+        <div class="insight-label">The deepest claim</div>
+        <p>Instrumental rationalism is <strong>parasitic on social trust</strong> it did not create and steadily erodes. Markets require contracts to be honored, promises kept — not because it is always individually rational to do so, but because people were shaped by traditions that instilled these dispositions. As those traditions are dissolved by the market, the substrate markets depend on disappears too. <strong>The invisible hand was always borrowing against a moral capital it did not know how to replenish.</strong></p>
+      </div>
 
       <hr class="section-rule">
+
+      <!-- ── BLUE VINDICATED ── -->
 
       <h2>The blue button vindicated</h2>
 
       <p>
-        56% pressed blue. This is not a small majority. It is the first majority you would need to actually
-        save everyone under the rules of the scenario. And it is philosophically remarkable, because blue
-        is — from a strictly instrumental rationalist standpoint — the wrong answer. You are gambling your
-        survival on the choices of strangers you cannot coordinate with, in a private vote with no
-        communication. The red button is sitting there with a guarantee. And most people ignored it.
+        56% pressed blue. This is philosophically remarkable: blue is, from a strictly instrumental
+        rationalist standpoint, the wrong answer. You are gambling your survival on strangers you cannot
+        coordinate with. The red button is sitting there with a guarantee. And most people ignored it.
       </p>
 
       <p>
         Habermas offers one way to understand why. Against instrumental reason he posited
         <em>communicative reason</em>: rationality oriented not toward individual optimization but toward
-        mutual understanding, toward reaching agreement with others about what to do together. Where
-        instrumental reason asks "what is my best move?", communicative reason asks "what could we all
-        agree to?" The blue button is an attempt at the second question in a situation that formally
-        allows only the first.
+        mutual understanding. Where instrumental reason asks "what is my best move?", communicative reason
+        asks "what could we all agree to?" The blue button is an attempt at the second question in a
+        situation that formally allows only the first.
       </p>
 
       <p>
-        But the more interesting explanation might not be rationalist at all. The blue pressers may not
-        have been reasoning in either mode. They may have been acting from something older: a moral
-        intuition about what kind of person one should be, prior to calculation. Not "blue maximizes my
-        expected outcome" but "I am not the kind of person who defects on a collective good when I can
-        be the one to hold it together."
+        But the more interesting explanation may not be rationalist at all. The blue pressers may have
+        been acting from something older — a moral intuition about what kind of person one should be,
+        prior to calculation. Not "blue maximizes my expected outcome" but "I am not the kind of person
+        who defects on a collective good when I can be the one to hold it together." This is virtue ethics
+        in Aristotle's sense. It is also what Polanyi meant by embedded social relations: before markets
+        abstracted economic life into price signals, exchange was embedded in obligation, reciprocity, and
+        community expectation. You did not calculate whether to keep your word with your neighbor.
       </p>
 
-      <p>
-        This is virtue ethics in Aristotle's sense — character producing action without explicit
-        deliberation. It is also what Polanyi meant by embedded social relations: before markets abstracted
-        economic life into price signals, exchange was embedded in webs of obligation, reciprocity, and
-        community expectation. You did not calculate whether to keep your word with your neighbor. It
-        was simply what a member of the community did.
-      </p>
-
-      <p>
-        The Frankfurt School was pessimistic about whether these instincts could survive. The 56% suggests
-        they are more resilient than Marcuse feared. Or at least: they have not been fully dissolved yet.
-        The one-dimensional man has not yet entirely arrived.
-      </p>
-
-      <p>
-        But the question the poll cannot answer is whether 56% is stable. The Enlightenment rationalist
-        system — markets, consumer capitalism, the institutional dissolution of everything communal and
-        obligatory — keeps producing red button people. Every generation inherits slightly less of the
-        moral substrate that makes blue feel obvious. The 56% may be living off borrowed time, spending
-        down a stock of moral intuition that rationalism replenishes nothing while slowly depleting
-        everything.
-      </p>
-
-      <p>
-        If that is right, the red button vs blue button debate is not a clever puzzle. It is a measurement
-        of how much is left.
-      </p>
+      <div class="insight">
+        <div class="insight-label">The open question</div>
+        <p>The Frankfurt School was pessimistic about whether these instincts could survive. The 56% suggests they are more resilient than Marcuse feared. But the poll cannot tell us whether that number is <strong>stable</strong>. The Enlightenment rationalist system keeps producing red button people. Every generation inherits slightly less of the moral substrate that makes blue feel obvious. The 56% may be living off borrowed time — spending down a stock of moral intuition that rationalism replenishes nothing while slowly depleting everything.</p>
+        <br>
+        <p>If that is right, the red button vs blue button debate is not a clever puzzle. It is a measurement of how much is left.</p>
+      </div>
 
     </article>
 
