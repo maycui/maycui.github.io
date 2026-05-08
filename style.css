@@ -50,7 +50,7 @@ header h1 {
   font-size: 1.05rem;
   font-weight: 300;
   letter-spacing: 0.3em;
-  text-transform: uppercase;
+  text-transform: lowercase;
   color: var(--navy);
   margin: 0;
   line-height: 1;
