@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>intellectual timeline &mdash; DigiGarden</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.25rem;
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.63rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .legend-pip {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .pip-marx    { background: #b84040; }
+    .pip-weber   { background: #2a7a70; }
+    .pip-gramsci { background: #5a7a48; }
+    .pip-war     { background: #888888; }
+    .pip-rural   { background: #b07820; }
+
+    /* ── Timeline scaffold ─────────────────────────────── */
+
+    .tl {
+      position: relative;
+      padding-left: 4rem;
+    }
+
+    .tl::before {
+      content: '';
+      position: absolute;
+      left: 2rem;
+      top: 0.5rem;
+      bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+
+    /* ── Year node ─────────────────────────────────────── */
+
+    .tl-node {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .tl-node::before {
+      content: '';
+      position: absolute;
+      left: -2.18rem;
+      top: 0.38rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1.5px solid var(--border-dark);
+    }
+
+    .tl-year {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 0.6rem;
+    }
+
+    /* ── War span block ────────────────────────────────── */
+
+    .tl-war {
+      border-left: 3px solid #aaa;
+      background: #f5f5f5;
+      padding: 0.65rem 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .tl-war-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #555;
+      margin: 0 0 0.2rem;
+    }
+
+    .tl-war-detail {
+      font-size: 0.82rem;
+      color: var(--muted-dark);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ── Event row ─────────────────────────────────────── */
+
+    .tl-event {
+      display: flex;
+      gap: 0.65rem;
+      align-items: baseline;
+      margin-bottom: 0.55rem;
+      line-height: 1.55;
+    }
+
+    .tl-tag {
+      display: inline-block;
+      font-size: 0.56rem;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      padding: 0.12rem 0.5rem;
+      border-radius: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .tag-marx    { background: #f5e2e2; color: #8b2020; }
+    .tag-weber   { background: #d8eae8; color: #1a5550; }
+    .tag-gramsci { background: #e2eadc; color: #3a5828; }
+    .tag-rural   { background: #f2ebe0; color: #7a5a10; }
+
+    .tl-text {
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    .tl-text em {
+      font-family: var(--font-display);
+      font-size: 0.98rem;
+    }
+
+    .tl-note {
+      font-size: 0.78rem;
+      color: var(--muted-dark);
+      display: block;
+      margin-top: 0.1rem;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav><a class="home" href="../index.html">&#8592; DigiGarden</a></nav>
+
+    <article>
+      <h1>intellectual timeline</h1>
+      <span class="dateline">Ongoing &mdash; last updated May 2026</span>
+
+      <p>A working timeline to contextualize the ideas, texts, and events that keep appearing across these notes. Figures are placed at the dates of their major works; historical events are placed where they intersect the intellectual history.</p>
+
+      <div class="legend">
+        <span class="legend-item"><span class="legend-pip pip-marx"></span>Marx</span>
+        <span class="legend-item"><span class="legend-pip pip-weber"></span>Weber</span>
+        <span class="legend-item"><span class="legend-pip pip-gramsci"></span>Gramsci</span>
+        <span class="legend-item"><span class="legend-pip pip-war"></span>World Wars</span>
+        <span class="legend-item"><span class="legend-pip pip-rural"></span>Rural Realism</span>
+      </div>
+
+      <div class="tl">
+
+        <div class="tl-node">
+          <p class="tl-year">1818</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-marx">Marx</span>
+            <span class="tl-text">Karl Marx born in Trier, Prussia.</span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1845 &ndash; 1848</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-marx">Marx</span>
+            <span class="tl-text"><em>Theses on Feuerbach</em> (1845); <em>The German Ideology</em> with Engels (1845&ndash;46, unpublished until 1932). The foundational break with Hegelian idealism &mdash; materialism as method.
+              <span class="tl-note"><em>The Communist Manifesto</em> published 1848, the same year as the wave of European revolutions.</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1860 &ndash; 1861</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-rural">Rural</span>
+            <span class="tl-text">George Eliot &mdash; <em>The Mill on the Floss</em> (1860), <em>Silas Marner</em> (1861).
+              <span class="tl-note">Rural England depicted as socially merciless; community judgment functions as punishment.</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1864</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-weber">Weber</span>
+            <span class="tl-text">Max Weber born in Erfurt, Prussia.</span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1867</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-marx">Marx</span>
+            <span class="tl-text"><em>Das Kapital</em>, Vol. I. The analysis of commodity fetishism, surplus value, and the hidden extraction underlying capitalist production.</span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1871</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-marx">Marx</span>
+            <span class="tl-text">The Paris Commune. The first experiment in workers' self-governance, crushed after 72 days. Marx analyzes it in <em>The Civil War in France</em>.
+              <span class="tl-note">Shapes Marx's thinking on the state and revolution in his final years.</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1874 &ndash; 1895</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-rural">Rural</span>
+            <span class="tl-text">Thomas Hardy &mdash; the Wessex novels.
+              <span class="tl-note"><em>Far from the Madding Crowd</em> (1874) &middot; <em>The Return of the Native</em> (1878) &middot; <em>Tess of the d'Urbervilles</em> (1891) &middot; <em>Jude the Obscure</em> (1895). Nature is beautiful and indifferent; social convention destroys individuals who transgress it.</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1883</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-marx">Marx</span>
+            <span class="tl-text">Marx dies in London. <em>Das Kapital</em> Vols. II and III edited and published posthumously by Engels.</span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1887</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-rural">Rural</span>
+            <span class="tl-text">Émile Zola &mdash; <em>La Terre</em>. The sharpest entry in the tradition; a documentary corrective to George Sand's idealized rural fiction. Peasant life depicted as violent, grasping, and economically brutal.</span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1891</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-gramsci">Gramsci</span>
+            <span class="tl-text">Antonio Gramsci born in Ales, Sardinia &mdash; rural, impoverished, peripheral. His origin shapes his later thinking about the south of Italy and uneven development.</span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1904 &ndash; 1905</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-weber">Weber</span>
+            <span class="tl-text"><em>The Protestant Ethic and the Spirit of Capitalism</em>. The argument that Calvinist theology produced the psychological conditions for capitalist accumulation &mdash; worldly asceticism, the calling, the proof of salvation through work.
+              <span class="tl-note">A deliberate conversation with Marx: Weber agrees capitalism is a system but disputes that its origins are purely material.</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1913</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-rural">Rural</span>
+            <span class="tl-text">Willa Cather &mdash; <em>O Pioneers!</em> The Great Plains as a site of immigrant labor, failure, and ambiguous elegy. Refuses the triumphalism American frontier mythology demanded.</span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1914 &ndash; 1918</p>
+          <div class="tl-war">
+            <p class="tl-war-label">World War I</p>
+            <p class="tl-war-detail">July 1914: assassination of Franz Ferdinand triggers alliance cascade. 1917: Russian Revolution; US enters. November 1918: Armistice. ~20 million dead. The war destroys the liberal optimism of the 19th century and produces the conditions for both fascism and the Soviet experiment.</p>
+          </div>
+          <div class="tl-event">
+            <span class="tl-tag tag-gramsci">Gramsci</span>
+            <span class="tl-text">Gramsci becomes editor of the socialist newspaper <em>Avanti!</em> in Turin. The war radicalizes the Italian left and sets the stage for factory occupations and the Biennio Rosso (1919&ndash;20).</span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1918 &ndash; 1919</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-weber">Weber</span>
+            <span class="tl-text"><em>Politics as a Vocation</em> and <em>Science as a Vocation</em> (lectures, 1917&ndash;19). On the disenchantment of the world, the rationalization of all spheres of life, and the bureaucratic iron cage. Weber sees no exit.
+            </span>
+          </div>
+          <div class="tl-event">
+            <span class="tl-tag tag-rural">Rural</span>
+            <span class="tl-text">Sherwood Anderson &mdash; <em>Winesburg, Ohio</em>. Small-town rural America as a space of psychological isolation and failed communication.</span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1920</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-weber">Weber</span>
+            <span class="tl-text">Weber dies in Munich, aged 56, of pneumonia during the Spanish flu. <em>Economy and Society</em> published posthumously (1922) &mdash; his major theoretical synthesis.</span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1921 &ndash; 1926</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-gramsci">Gramsci</span>
+            <span class="tl-text">Co-founds the Italian Communist Party (1921). Elected to parliament (1924). Mussolini consolidates power and strips parliamentary immunity. Gramsci arrested November 1926.
+              <span class="tl-note">At his trial, the prosecutor reportedly said: "We must stop this brain from functioning for twenty years."</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1929 &ndash; 1935</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-gramsci">Gramsci</span>
+            <span class="tl-text">Gramsci writes the <em>Prison Notebooks</em> from his cell at Turi di Bari. ~3,000 pages on hegemony, civil society, the role of intellectuals, and why revolution had failed in the West.
+              <span class="tl-note">Written under censorship, in deliberately indirect language. The concept of hegemony &mdash; that ruling classes govern through consent, not just coercion &mdash; is developed here.</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1937</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-gramsci">Gramsci</span>
+            <span class="tl-text">Gramsci dies in a Rome clinic, 46 years old. He had spent eleven years in Fascist prisons. The <em>Prison Notebooks</em> are smuggled out by his sister-in-law Tatiana and eventually published from 1947 onward.</span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1939 &ndash; 1945</p>
+          <div class="tl-war">
+            <p class="tl-war-label">World War II</p>
+            <p class="tl-war-detail">September 1939: Germany invades Poland. 1940: Fall of France. 1941: Germany invades USSR; Japan attacks Pearl Harbor. 1944: D-Day. May 1945: Germany surrenders. August 1945: Japan surrenders after atomic bombs dropped on Hiroshima and Nagasaki. ~70&ndash;85 million dead, the majority civilians. The war produces the conditions for decolonization, the Cold War, and the postwar welfare state.</p>
+          </div>
+          <div class="tl-event">
+            <span class="tl-tag tag-rural">Rural</span>
+            <span class="tl-text">John Steinbeck &mdash; <em>The Grapes of Wrath</em> (1939). Rural realism as political argument: the Joads are destroyed not by nature or social convention but by an economic system that treats agricultural labor as disposable.</span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1960s &ndash; 1990</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-rural">Rural</span>
+            <span class="tl-text">John McGahern &mdash; the Leitrim novels and stories.
+              <span class="tl-note">Rural Catholic Ireland rendered in prose of extraordinary restraint. <em>Amongst Women</em> (1990) is his masterpiece: patriarchal authority in slow decline on a small farm.</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1976</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-rural">Rural</span>
+            <span class="tl-text">Inès Cagnati &mdash; <em>Crazy Genie</em>. Narrated by a young girl about her ostracized mother, a farmhand in rural France cast out for having a child out of wedlock. Simple, poetic, repetitive prose. Poverty, prejudice, and fierce maternal love without resolution.</span>
+          </div>
+        </div>
+
+        <div class="tl-node">
+          <p class="tl-year">1983</p>
+          <div class="tl-event">
+            <span class="tl-tag tag-rural">Rural</span>
+            <span class="tl-text">Annie Ernaux &mdash; <em>La Place</em>. Rural realism shading into autofiction: an account of her father and the class distance her education opened between them.
+              <span class="tl-note">"I tried to gather together the words, the phrases, the events that were the marks of both a culture and an impoverishment."</span>
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <footer>
+      <a href="../index.html">DigiGarden</a>
+    </footer>
+  </div>
+</body>
+</html>

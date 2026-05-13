@@ -74,6 +74,12 @@ nav a.home:hover {
   color: var(--navy);
 }
 
+/* ── Reference section ────────────────────────────────── */
+
+.reference-section {
+  margin-bottom: 2.5rem;
+}
+
 /* ── Month groupings ──────────────────────────────────── */
 
 .month-group {
