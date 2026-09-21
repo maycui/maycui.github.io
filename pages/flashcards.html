@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>flashcards &mdash; DigiGarden</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+
+    .fc-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 2rem;
+    }
+
+    .fc-filter {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid var(--border);
+      background: none;
+      color: var(--muted);
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.15s;
+    }
+
+    .fc-filter:hover {
+      border-color: var(--navy);
+      color: var(--navy);
+    }
+
+    .fc-filter.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #fff;
+    }
+
+    .fc-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .fc-progress {
+      font-size: 0.63rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .fc-shuffle {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.15s;
+    }
+
+    .fc-shuffle:hover { color: var(--navy); }
+
+    /* ── Card ──────────────────────────────────────────── */
+
+    .fc-scene {
+      perspective: 1000px;
+      margin-bottom: 1.5rem;
+    }
+
+    .fc-card {
+      position: relative;
+      width: 100%;
+      height: 260px;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .fc-card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .fc-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .fc-front {
+      background: #fff;
+    }
+
+    .fc-back {
+      background: var(--cream);
+      transform: rotateY(180deg);
+    }
+
+    .fc-face-label {
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .fc-face-text {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      line-height: 1.45;
+      color: var(--navy);
+    }
+
+    .fc-back .fc-face-text {
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .fc-hint {
+      position: absolute;
+      bottom: 0.9rem;
+      font-size: 0.58rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #ccc;
+    }
+
+    .fc-tag {
+      position: absolute;
+      top: 0.9rem;
+      right: 0.9rem;
+      font-size: 0.56rem;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      padding: 0.1rem 0.45rem;
+      border-radius: 2px;
+    }
+
+    .tag-philosophy  { background: #ede5f5; color: #6a4a8a; }
+    .tag-sociology   { background: #dce6f2; color: #1a2d4a; }
+    .tag-events      { background: #ebebeb; color: #555; }
+    .tag-literature  { background: #f2ebe0; color: #7a5a10; }
+
+    /* ── Navigation ────────────────────────────────────── */
+
+    .fc-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .fc-btn {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.55rem 1.4rem;
+      border: 1px solid var(--border);
+      background: none;
+      color: var(--text);
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.15s;
+    }
+
+    .fc-btn:hover:not(:disabled) {
+      border-color: var(--navy);
+      color: var(--navy);
+    }
+
+    .fc-btn:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+    .fc-nav-count {
+      font-size: 0.7rem;
+      color: var(--muted);
+      min-width: 4rem;
+      text-align: center;
+    }
+
+    .fc-empty {
+      text-align: center;
+      padding: 4rem 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav><a class="home" href="../index.html">&#8592; DigiGarden</a></nav>
+
+    <article>
+      <h1>flashcards</h1>
+
+      <div class="fc-filters" id="filters">
+        <button class="fc-filter active" data-cat="all">All</button>
+        <button class="fc-filter" data-cat="philosophy">Philosophy</button>
+        <button class="fc-filter" data-cat="sociology">Sociology</button>
+        <button class="fc-filter" data-cat="events">Global Events</button>
+        <button class="fc-filter" data-cat="literature">Literature</button>
+      </div>
+
+      <div class="fc-meta">
+        <span class="fc-progress" id="progress">Card 1 of 36</span>
+        <button class="fc-shuffle" id="shuffleBtn">&#8645; Shuffle</button>
+      </div>
+
+      <div class="fc-scene">
+        <div class="fc-card" id="card">
+          <div class="fc-face fc-front">
+            <span class="fc-tag" id="tagFront"></span>
+            <p class="fc-face-label">Question</p>
+            <p class="fc-face-text" id="frontText"></p>
+            <span class="fc-hint">Click to reveal</span>
+          </div>
+          <div class="fc-face fc-back">
+            <span class="fc-tag" id="tagBack"></span>
+            <p class="fc-face-label">Answer</p>
+            <p class="fc-face-text" id="backText"></p>
+          </div>
+        </div>
+        <div class="fc-empty" id="emptyState" style="display:none;">No cards in this category.</div>
+      </div>
+
+      <div class="fc-nav" id="nav">
+        <button class="fc-btn" id="prevBtn">&#8592; Prev</button>
+        <span class="fc-nav-count" id="navCount">1 / 36</span>
+        <button class="fc-btn" id="nextBtn">Next &#8594;</button>
+      </div>
+    </article>
+  </div>
+
+  <script>
+    const ALL_CARDS = [
+
+      // ── Philosophy: Hobbes ──────────────────────────────
+      { cat: 'philosophy', front: 'When was Leviathan published?', back: '1651, written while Hobbes was in exile in Paris during the English Civil War.' },
+      { cat: 'philosophy', front: 'How did Hobbes describe life without society?', back: '"Solitary, poor, nasty, brutish, and short." Without a sovereign, humans exist in a permanent state of war against one another.' },
+      { cat: 'philosophy', front: 'What historical event most shaped Hobbes\'s political philosophy?', back: 'The English Civil War (1642–1651). He watched the established order collapse, Charles I executed, and England descend into chaos — and wrote Leviathan as a direct response.' },
+      { cat: 'philosophy', front: 'What does Hobbes argue is the solution to the state of nature?', back: 'An absolute sovereign — a powerful authority to whom citizens surrender their freedom irrevocably, in exchange for security.' },
+      { cat: 'philosophy', front: 'What political tradition does Hobbes feed into?', back: 'Authoritarianism and strong-state conservatism. He provides the theoretical basis for the argument that order must come before liberty.' },
+
+      // ── Philosophy: Locke ───────────────────────────────
+      { cat: 'philosophy', front: 'When were Locke\'s Two Treatises of Government published?', back: '1689 — the year after the Glorious Revolution, partly as its retrospective justification.' },
+      { cat: 'philosophy', front: 'What are Locke\'s three natural rights?', back: 'Life, liberty, and property. These pre-exist government; society is formed to protect them more reliably.' },
+      { cat: 'philosophy', front: 'According to Locke, when is revolution justified?', back: 'When government fails to protect natural rights and instead destroys them — it has broken the contract and citizens are absolved from obedience.' },
+      { cat: 'philosophy', front: 'What historical event vindicated Locke\'s ideas?', back: 'The Glorious Revolution of 1688: James II was deposed and replaced by William and Mary under explicit constitutional conditions — a king removed by consent.' },
+      { cat: 'philosophy', front: 'What political tradition does Locke feed into?', back: 'Liberalism, constitutionalism, and the American founding. The Declaration of Independence draws directly on his language of natural rights and consent.' },
+
+      // ── Philosophy: Rousseau ────────────────────────────
+      { cat: 'philosophy', front: 'When was The Social Contract published?', back: '1762. It was immediately banned in both Paris and Geneva, forcing Rousseau to flee.' },
+      { cat: 'philosophy', front: 'What is the opening line of The Social Contract?', back: '"Man is born free, and everywhere he is in chains."' },
+      { cat: 'philosophy', front: 'What does Rousseau identify as the origin of inequality?', back: 'Private property: "The first man who enclosed a piece of ground and said \'This is mine\' was the real founder of civil society." A direct counter to Locke.' },
+      { cat: 'philosophy', front: 'When was Rousseau\'s Discourse on Inequality published?', back: '1755. It argues that civilization and social progress have corrupted naturally good human beings, not improved them.' },
+      { cat: 'philosophy', front: 'What political tradition does Rousseau feed into?', back: 'Democracy, romanticism, and revolutionary politics. His ideas directly fueled the French Revolution — though he died eleven years before it.' },
+
+      // ── Sociology: Marx ─────────────────────────────────
+      { cat: 'sociology', front: 'When was Das Kapital Vol. I published?', back: '1867. It analyzes commodity fetishism, surplus value, and the hidden exploitation underlying capitalist production.' },
+      { cat: 'sociology', front: 'When was the Communist Manifesto published, and with whom?', back: '1848, written with Friedrich Engels — the same year as the wave of European revolutions. It opens: "The history of all hitherto existing society is the history of class struggles."' },
+      { cat: 'sociology', front: 'What is commodity fetishism?', back: 'Marx\'s concept: goods produced by human labor come to appear as if their value is an intrinsic property of the object itself, masking the social relations and exploitation behind their production.' },
+      { cat: 'sociology', front: 'What was the Paris Commune and why did it matter to Marx?', back: 'An 1871 workers\' self-government in Paris, crushed after 72 days. Marx analyzed it in The Civil War in France as the first real experiment in proletarian rule.' },
+      { cat: 'sociology', front: 'When did Marx die?', back: '1883, in London. Das Kapital Vols. II and III were edited and published posthumously by Engels.' },
+
+      // ── Sociology: Weber ────────────────────────────────
+      { cat: 'sociology', front: 'What is Weber\'s "iron cage"?', back: 'The inescapable rationalization and bureaucratization of modern life. The system becomes so efficient and self-sustaining that it traps everyone inside it, with no exit visible.' },
+      { cat: 'sociology', front: 'What is the central argument of The Protestant Ethic and the Spirit of Capitalism?', back: 'Calvinist theology produced the psychological conditions for capitalism: the "calling," worldly asceticism, and the idea that earthly success proved divine favor. A deliberate conversation with Marx — Weber agrees capitalism is a system but disputes that its origins are purely material.' },
+      { cat: 'sociology', front: 'When did Weber die, and how?', back: '1920, aged 56, of pneumonia during the Spanish flu. Economy and Society was published posthumously in 1922.' },
+      { cat: 'sociology', front: 'What are Weber\'s Politics as a Vocation and Science as a Vocation?', back: 'Two lectures (1917–19) on the disenchantment of the modern world — the rationalization of all spheres of life, including politics. Weber sees no redemptive exit from the iron cage.' },
+
+      // ── Sociology: Gramsci ──────────────────────────────
+      { cat: 'sociology', front: 'What is Gramsci\'s concept of hegemony?', back: 'Ruling classes maintain power not just through coercion (police, armies) but through cultural and ideological consent — shaping what people think of as natural, inevitable, or common sense.' },
+      { cat: 'sociology', front: 'Where and when did Gramsci write the Prison Notebooks?', back: 'From his cell at Turi di Bari, 1929–1935, after being imprisoned by Mussolini\'s government. ~3,000 pages written under censorship, in deliberately indirect language.' },
+      { cat: 'sociology', front: 'What did the Fascist prosecutor reportedly say at Gramsci\'s trial?', back: '"We must stop this brain from functioning for twenty years." Gramsci was sentenced in 1928; he died in prison in 1937, aged 46.' },
+      { cat: 'sociology', front: 'When did Gramsci die, and when were the Prison Notebooks published?', back: 'Gramsci died in 1937. The Notebooks were smuggled out by his sister-in-law Tatiana and published from 1947 onward.' },
+
+      // ── Global Events ───────────────────────────────────
+      { cat: 'events', front: 'What were the dates of World War I?', back: '1914–1918. Began with the assassination of Franz Ferdinand; ended with the Armistice of November 1918. ~20 million dead. Destroyed 19th-century liberal optimism and set the conditions for fascism and the Soviet experiment.' },
+      { cat: 'events', front: 'What were the dates of World War II?', back: '1939–1945. Began with Germany\'s invasion of Poland; ended with Germany\'s surrender (May 1945) and Japan\'s surrender (August 1945). ~70–85 million dead, the majority civilians.' },
+      { cat: 'events', front: 'When did the French Revolution begin, and what were its key phases?', back: '1789: Storming of the Bastille. 1792: First Republic. 1793–94: The Reign of Terror under Robespierre. 1799: Napoleon\'s coup ends the revolutionary period.' },
+      { cat: 'events', front: 'When was the American Declaration of Independence, and whose ideas does it draw on?', back: '1776. It draws directly on Locke\'s language of natural rights, consent of the governed, and the right to revolution when government fails.' },
+      { cat: 'events', front: 'What was the English Civil War and why does it matter intellectually?', back: '1642–1651: Parliament raised an army against King Charles I, who was executed in 1649. The collapse of established order directly prompted Hobbes to write Leviathan.' },
+      { cat: 'events', front: 'What was the Glorious Revolution of 1688?', back: 'James II was deposed without bloodshed and replaced by William and Mary under constitutional conditions. Locke had fled to the Netherlands over his opposition to James; the revolution vindicated his ideas. He published the Two Treatises the following year.' },
+      { cat: 'events', front: 'Roughly when did the Industrial Revolution begin, and where?', back: 'Britain, c. 1760. Key markers: Watt\'s steam engine (1769), the spinning jenny (1764), mechanized production. Railways spread in the 1830s–40s. Created the industrial proletariat Marx would analyze.' },
+
+      // ── Literature ──────────────────────────────────────
+      { cat: 'literature', front: 'When was The Grapes of Wrath published and what is its argument?', back: '1939, John Steinbeck. Rural realism as political argument: the Joads are not defeated by nature or bad luck but by an economic system that treats agricultural labor as disposable.' },
+      { cat: 'literature', front: 'What is Crazy Genie (1976) about?', back: 'A novel by Inès Cagnati, narrated by a young girl about her taciturn, ostracized mother Genie — a farmhand in rural France cast out for having a child out of wedlock. Simple, poetic, repetitive prose. Poverty, prejudice, and fierce maternal love without resolution.' },
+    ];
+
+    const tagLabels = { philosophy: 'Philosophy', sociology: 'Sociology', events: 'Global Events', literature: 'Literature' };
+    const tagClasses = { philosophy: 'tag-philosophy', sociology: 'tag-sociology', events: 'tag-events', literature: 'tag-literature' };
+
+    let deck = [...ALL_CARDS];
+    let currentIndex = 0;
+    let flipped = false;
+    let activeFilter = 'all';
+
+    const cardEl     = document.getElementById('card');
+    const frontText  = document.getElementById('frontText');
+    const backText   = document.getElementById('backText');
+    const tagFront   = document.getElementById('tagFront');
+    const tagBack    = document.getElementById('tagBack');
+    const progressEl = document.getElementById('progress');
+    const navCount   = document.getElementById('navCount');
+    const prevBtn    = document.getElementById('prevBtn');
+    const nextBtn    = document.getElementById('nextBtn');
+    const emptyState = document.getElementById('emptyState');
+    const nav        = document.getElementById('nav');
+
+    function setTag(el, cat) {
+      el.textContent = tagLabels[cat] || '';
+      el.className = 'fc-tag ' + (tagClasses[cat] || '');
+    }
+
+    function render() {
+      if (deck.length === 0) {
+        cardEl.style.display = 'none';
+        nav.style.display = 'none';
+        emptyState.style.display = 'block';
+        progressEl.textContent = '0 cards';
+        return;
+      }
+      cardEl.style.display = '';
+      nav.style.display = '';
+      emptyState.style.display = 'none';
+
+      const card = deck[currentIndex];
+      frontText.textContent = card.front;
+      backText.textContent  = card.back;
+      setTag(tagFront, card.cat);
+      setTag(tagBack,  card.cat);
+
+      const total = deck.length;
+      const pos   = currentIndex + 1;
+      progressEl.textContent = `Card ${pos} of ${total}`;
+      navCount.textContent   = `${pos} / ${total}`;
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex === total - 1;
+
+      // reset flip
+      flipped = false;
+      cardEl.classList.remove('flipped');
+    }
+
+    function applyFilter(cat) {
+      activeFilter = cat;
+      deck = cat === 'all' ? [...ALL_CARDS] : ALL_CARDS.filter(c => c.cat === cat);
+      currentIndex = 0;
+      render();
+    }
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // Flip
+    cardEl.addEventListener('click', () => {
+      if (deck.length === 0) return;
+      flipped = !flipped;
+      cardEl.classList.toggle('flipped', flipped);
+    });
+
+    // Navigation
+    prevBtn.addEventListener('click', () => { if (currentIndex > 0) { currentIndex--; render(); } });
+    nextBtn.addEventListener('click', () => { if (currentIndex < deck.length - 1) { currentIndex++; render(); } });
+
+    // Filters
+    document.getElementById('filters').addEventListener('click', e => {
+      if (!e.target.matches('.fc-filter')) return;
+      document.querySelectorAll('.fc-filter').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      applyFilter(e.target.dataset.cat);
+    });
+
+    // Shuffle
+    document.getElementById('shuffleBtn').addEventListener('click', () => {
+      shuffle(deck);
+      currentIndex = 0;
+      render();
+    });
+
+    // Keyboard
+    document.addEventListener('keydown', e => {
+      if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); cardEl.click(); }
+      if (e.key === 'ArrowRight' && currentIndex < deck.length - 1) { currentIndex++; render(); }
+      if (e.key === 'ArrowLeft'  && currentIndex > 0)               { currentIndex--; render(); }
+    });
+
+    render();
+  </script>
+</body>
+</html>
