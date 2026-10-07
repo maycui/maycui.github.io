@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>flag quiz &mdash; DigiGarden</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+
+    .fq-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 2rem;
+    }
+
+    .fq-filter {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border: 1px solid var(--border);
+      background: none;
+      color: var(--muted);
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.15s;
+    }
+
+    .fq-filter:hover { border-color: var(--navy); color: var(--navy); }
+    .fq-filter.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+
+    .fq-score {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .fq-score-text {
+      font-size: 0.63rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .fq-score-text strong {
+      color: var(--navy);
+      font-weight: 500;
+    }
+
+    .fq-streak {
+      font-size: 0.63rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── Flag display ──────────────────────────────────── */
+
+    .fq-card {
+      border: 1px solid var(--border);
+      padding: 2.5rem 1rem;
+      text-align: center;
+      margin-bottom: 1.25rem;
+      background: #fff;
+      position: relative;
+    }
+
+    .fq-flag {
+      font-size: 6rem;
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.75rem;
+      user-select: none;
+    }
+
+    .fq-prompt {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .fq-feedback {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.9rem;
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .fq-feedback.correct { color: #2a7a50; opacity: 1; }
+    .fq-feedback.wrong   { color: #a83228; opacity: 1; }
+
+    /* ── Answer grid ───────────────────────────────────── */
+
+    .fq-answers {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .fq-answer {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 400;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      cursor: pointer;
+      text-align: left;
+      border-radius: 2px;
+      transition: all 0.12s;
+      line-height: 1.35;
+    }
+
+    .fq-answer:hover:not(:disabled) {
+      border-color: var(--navy);
+      color: var(--navy);
+    }
+
+    .fq-answer.correct {
+      background: #eaf5ee;
+      border-color: #2a7a50;
+      color: #2a7a50;
+    }
+
+    .fq-answer.wrong {
+      background: #fdecea;
+      border-color: #a83228;
+      color: #a83228;
+    }
+
+    .fq-answer.reveal {
+      background: #eaf5ee;
+      border-color: #2a7a50;
+      color: #2a7a50;
+    }
+
+    .fq-answer:disabled { cursor: default; }
+
+    /* ── Next button ───────────────────────────────────── */
+
+    .fq-next {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.65rem;
+      border: 1px solid var(--border);
+      background: none;
+      color: var(--muted);
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.15s;
+      display: none;
+    }
+
+    .fq-next.visible { display: block; }
+    .fq-next:hover { border-color: var(--navy); color: var(--navy); }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav><a class="home" href="../index.html">&#8592; DigiGarden</a></nav>
+
+    <article>
+      <h1>flag quiz</h1>
+
+      <div class="fq-filters" id="filters">
+        <button class="fq-filter active" data-region="all">All</button>
+        <button class="fq-filter" data-region="europe">Europe</button>
+        <button class="fq-filter" data-region="americas">Americas</button>
+        <button class="fq-filter" data-region="asia">Asia</button>
+        <button class="fq-filter" data-region="africa">Africa</button>
+        <button class="fq-filter" data-region="oceania">Oceania</button>
+      </div>
+
+      <div class="fq-score">
+        <span class="fq-score-text" id="scoreText">Score: <strong>0 / 0</strong></span>
+        <span class="fq-streak" id="streakText"></span>
+      </div>
+
+      <div class="fq-card">
+        <span class="fq-flag" id="flag"></span>
+        <span class="fq-prompt">Which country does this flag belong to?</span>
+        <span class="fq-feedback" id="feedback"></span>
+      </div>
+
+      <div class="fq-answers" id="answers"></div>
+
+      <button class="fq-next" id="nextBtn">Next flag &#8594;</button>
+    </article>
+  </div>
+
+  <script>
+    const COUNTRIES = [
+      // Europe
+      { name: 'France',          flag: '🇫🇷', region: 'europe' },
+      { name: 'Germany',         flag: '🇩🇪', region: 'europe' },
+      { name: 'United Kingdom',  flag: '🇬🇧', region: 'europe' },
+      { name: 'Spain',           flag: '🇪🇸', region: 'europe' },
+      { name: 'Italy',           flag: '🇮🇹', region: 'europe' },
+      { name: 'Portugal',        flag: '🇵🇹', region: 'europe' },
+      { name: 'Netherlands',     flag: '🇳🇱', region: 'europe' },
+      { name: 'Belgium',         flag: '🇧🇪', region: 'europe' },
+      { name: 'Switzerland',     flag: '🇨🇭', region: 'europe' },
+      { name: 'Austria',         flag: '🇦🇹', region: 'europe' },
+      { name: 'Sweden',          flag: '🇸🇪', region: 'europe' },
+      { name: 'Norway',          flag: '🇳🇴', region: 'europe' },
+      { name: 'Denmark',         flag: '🇩🇰', region: 'europe' },
+      { name: 'Finland',         flag: '🇫🇮', region: 'europe' },
+      { name: 'Poland',          flag: '🇵🇱', region: 'europe' },
+      { name: 'Russia',          flag: '🇷🇺', region: 'europe' },
+      { name: 'Ukraine',         flag: '🇺🇦', region: 'europe' },
+      { name: 'Greece',          flag: '🇬🇷', region: 'europe' },
+      { name: 'Turkey',          flag: '🇹🇷', region: 'europe' },
+      { name: 'Romania',         flag: '🇷🇴', region: 'europe' },
+      { name: 'Czech Republic',  flag: '🇨🇿', region: 'europe' },
+      { name: 'Hungary',         flag: '🇭🇺', region: 'europe' },
+      { name: 'Ireland',         flag: '🇮🇪', region: 'europe' },
+      { name: 'Croatia',         flag: '🇭🇷', region: 'europe' },
+      { name: 'Serbia',          flag: '🇷🇸', region: 'europe' },
+      { name: 'Slovakia',        flag: '🇸🇰', region: 'europe' },
+      // Americas
+      { name: 'United States',   flag: '🇺🇸', region: 'americas' },
+      { name: 'Canada',          flag: '🇨🇦', region: 'americas' },
+      { name: 'Mexico',          flag: '🇲🇽', region: 'americas' },
+      { name: 'Brazil',          flag: '🇧🇷', region: 'americas' },
+      { name: 'Argentina',       flag: '🇦🇷', region: 'americas' },
+      { name: 'Colombia',        flag: '🇨🇴', region: 'americas' },
+      { name: 'Chile',           flag: '🇨🇱', region: 'americas' },
+      { name: 'Peru',            flag: '🇵🇪', region: 'americas' },
+      { name: 'Venezuela',       flag: '🇻🇪', region: 'americas' },
+      { name: 'Cuba',            flag: '🇨🇺', region: 'americas' },
+      { name: 'Jamaica',         flag: '🇯🇲', region: 'americas' },
+      { name: 'Ecuador',         flag: '🇪🇨', region: 'americas' },
+      { name: 'Bolivia',         flag: '🇧🇴', region: 'americas' },
+      { name: 'Uruguay',         flag: '🇺🇾', region: 'americas' },
+      { name: 'Paraguay',        flag: '🇵🇾', region: 'americas' },
+      { name: 'Haiti',           flag: '🇭🇹', region: 'americas' },
+      // Asia
+      { name: 'China',           flag: '🇨🇳', region: 'asia' },
+      { name: 'Japan',           flag: '🇯🇵', region: 'asia' },
+      { name: 'South Korea',     flag: '🇰🇷', region: 'asia' },
+      { name: 'North Korea',     flag: '🇰🇵', region: 'asia' },
+      { name: 'India',           flag: '🇮🇳', region: 'asia' },
+      { name: 'Pakistan',        flag: '🇵🇰', region: 'asia' },
+      { name: 'Indonesia',       flag: '🇮🇩', region: 'asia' },
+      { name: 'Thailand',        flag: '🇹🇭', region: 'asia' },
+      { name: 'Vietnam',         flag: '🇻🇳', region: 'asia' },
+      { name: 'Philippines',     flag: '🇵🇭', region: 'asia' },
+      { name: 'Malaysia',        flag: '🇲🇾', region: 'asia' },
+      { name: 'Saudi Arabia',    flag: '🇸🇦', region: 'asia' },
+      { name: 'Iran',            flag: '🇮🇷', region: 'asia' },
+      { name: 'Iraq',            flag: '🇮🇶', region: 'asia' },
+      { name: 'Israel',          flag: '🇮🇱', region: 'asia' },
+      { name: 'UAE',             flag: '🇦🇪', region: 'asia' },
+      { name: 'Bangladesh',      flag: '🇧🇩', region: 'asia' },
+      { name: 'Afghanistan',     flag: '🇦🇫', region: 'asia' },
+      { name: 'Myanmar',         flag: '🇲🇲', region: 'asia' },
+      { name: 'Singapore',       flag: '🇸🇬', region: 'asia' },
+      { name: 'Kazakhstan',      flag: '🇰🇿', region: 'asia' },
+      { name: 'Mongolia',        flag: '🇲🇳', region: 'asia' },
+      // Africa
+      { name: 'South Africa',    flag: '🇿🇦', region: 'africa' },
+      { name: 'Egypt',           flag: '🇪🇬', region: 'africa' },
+      { name: 'Nigeria',         flag: '🇳🇬', region: 'africa' },
+      { name: 'Kenya',           flag: '🇰🇪', region: 'africa' },
+      { name: 'Ethiopia',        flag: '🇪🇹', region: 'africa' },
+      { name: 'Morocco',         flag: '🇲🇦', region: 'africa' },
+      { name: 'Ghana',           flag: '🇬🇭', region: 'africa' },
+      { name: 'Tanzania',        flag: '🇹🇿', region: 'africa' },
+      { name: 'Algeria',         flag: '🇩🇿', region: 'africa' },
+      { name: 'Tunisia',         flag: '🇹🇳', region: 'africa' },
+      { name: 'Senegal',         flag: '🇸🇳', region: 'africa' },
+      { name: 'Cameroon',        flag: '🇨🇲', region: 'africa' },
+      { name: 'Uganda',          flag: '🇺🇬', region: 'africa' },
+      { name: 'Zimbabwe',        flag: '🇿🇼', region: 'africa' },
+      { name: 'Mozambique',      flag: '🇲🇿', region: 'africa' },
+      // Oceania
+      { name: 'Australia',       flag: '🇦🇺', region: 'oceania' },
+      { name: 'New Zealand',     flag: '🇳🇿', region: 'oceania' },
+      { name: 'Fiji',            flag: '🇫🇯', region: 'oceania' },
+      { name: 'Papua New Guinea',flag: '🇵🇬', region: 'oceania' },
+      { name: 'Samoa',           flag: '🇼🇸', region: 'oceania' },
+    ];
+
+    let pool        = [...COUNTRIES];
+    let current     = null;
+    let answered    = false;
+    let correct     = 0;
+    let total       = 0;
+    let streak      = 0;
+    let recent      = [];   // avoid repeating last 5
+
+    const flagEl    = document.getElementById('flag');
+    const answersEl = document.getElementById('answers');
+    const nextBtn   = document.getElementById('nextBtn');
+    const scoreText = document.getElementById('scoreText');
+    const streakEl  = document.getElementById('streakText');
+    const feedback  = document.getElementById('feedback');
+
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function pick() {
+      const eligible = pool.filter(c => !recent.includes(c.name));
+      const candidates = eligible.length >= 1 ? eligible : pool;
+      return candidates[Math.floor(Math.random() * candidates.length)];
+    }
+
+    function getWrong(correct, n) {
+      const others = COUNTRIES.filter(c => c.name !== correct.name);
+      return shuffle(others).slice(0, n);
+    }
+
+    function updateScore() {
+      scoreText.innerHTML = `Score: <strong>${correct} / ${total}</strong>`;
+      if (streak >= 3) {
+        streakEl.textContent = `${streak} in a row`;
+      } else {
+        streakEl.textContent = '';
+      }
+    }
+
+    function nextQuestion() {
+      answered = false;
+      current  = pick();
+
+      recent.push(current.name);
+      if (recent.length > 5) recent.shift();
+
+      flagEl.textContent = current.flag;
+
+      feedback.textContent = '';
+      feedback.className   = 'fq-feedback';
+
+      const wrongs  = getWrong(current, 3);
+      const options = shuffle([current, ...wrongs]);
+
+      answersEl.innerHTML = '';
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className   = 'fq-answer';
+        btn.textContent = opt.name;
+        btn.addEventListener('click', () => handleAnswer(btn, opt.name));
+        answersEl.appendChild(btn);
+      });
+
+      nextBtn.classList.remove('visible');
+    }
+
+    function handleAnswer(btn, chosen) {
+      if (answered) return;
+      answered = true;
+      total++;
+
+      const isCorrect = chosen === current.name;
+
+      if (isCorrect) {
+        btn.classList.add('correct');
+        feedback.textContent = 'Correct';
+        feedback.className   = 'fq-feedback correct';
+        correct++;
+        streak++;
+      } else {
+        btn.classList.add('wrong');
+        feedback.textContent = 'Incorrect';
+        feedback.className   = 'fq-feedback wrong';
+        streak = 0;
+        // reveal the right answer
+        answersEl.querySelectorAll('.fq-answer').forEach(b => {
+          if (b.textContent === current.name) b.classList.add('reveal');
+        });
+      }
+
+      answersEl.querySelectorAll('.fq-answer').forEach(b => b.disabled = true);
+      updateScore();
+      nextBtn.classList.add('visible');
+    }
+
+    // Filters
+    document.getElementById('filters').addEventListener('click', e => {
+      if (!e.target.matches('.fq-filter')) return;
+      document.querySelectorAll('.fq-filter').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      const region = e.target.dataset.region;
+      pool   = region === 'all' ? [...COUNTRIES] : COUNTRIES.filter(c => c.region === region);
+      recent = [];
+      correct = 0; total = 0; streak = 0;
+      updateScore();
+      nextQuestion();
+    });
+
+    nextBtn.addEventListener('click', nextQuestion);
+
+    // Keyboard: Enter/Space for next, 1-4 for answers
+    document.addEventListener('keydown', e => {
+      if ((e.key === 'Enter' || e.key === ' ') && answered) {
+        e.preventDefault();
+        nextQuestion();
+      }
+      if (['1','2','3','4'].includes(e.key)) {
+        const idx = parseInt(e.key) - 1;
+        const btns = answersEl.querySelectorAll('.fq-answer');
+        if (btns[idx] && !answered) btns[idx].click();
+      }
+    });
+
+    nextQuestion();
+  </script>
+</body>
+</html>
